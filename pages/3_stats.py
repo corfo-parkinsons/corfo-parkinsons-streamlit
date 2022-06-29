@@ -5,7 +5,7 @@ import streamlit as st
 def scan_all(tablename):
     dynamodb = boto3.resource('dynamodb', region_name='us-east-2')
     table = dynamodb.Table(tablename)
-    resp = table.scan(ProjectionExpression="id, data")
+    resp = table.scan(ProjectionExpression="id, email")
     return resp['Items']
 
 st.set_page_config(

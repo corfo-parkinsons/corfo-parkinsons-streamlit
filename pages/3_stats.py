@@ -28,5 +28,5 @@ ddb = boto3.resource('dynamodb', region_name='us-east-2')
 
 #st.write('S3:', s3data)
 audios = scan_all('audios')
-adata = audios
+adata = [audio['id'] for audio in audios]
 st.write('DymamoDB:', adata)

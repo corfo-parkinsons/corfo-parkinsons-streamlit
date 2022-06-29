@@ -27,4 +27,6 @@ ddb = boto3.resource('dynamodb', region_name='us-east-2')
 #s3data = my_bucket.objects.all()
 
 #st.write('S3:', s3data)
-st.write('DymamoDB:', scan_all('Users'))
+audios = scan_all('audios')
+adata = audios
+st.write('DymamoDB:', adata)

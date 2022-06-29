@@ -17,6 +17,8 @@ def read_file(filename):
     
 s3 = boto3.resource('s3', region_name='us-east-2')  # should be validated with ENV? credentials
 ddb = boto3.resource('dynamodb', region_name='us-east-2')
+my_bucket = s3.Bucket('quantcldata/AUDIOS')
+s3data = my_bucket.objects.all()
 
-st.write('S3:', s3)
+st.write('S3:', s3data)
 st.write('DymamoDB:', ddb)

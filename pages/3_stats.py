@@ -2,6 +2,12 @@ import boto3, s3fs
 import pandas as pd
 import streamlit as st
 
+def scan_all(tablename):
+    dynamodb = boto3.resource('dynamodb')
+    table = dynamodb.Table(tablename)
+    resp = table.scan(ProjectionExpression="id, data")
+    return resp['Items']
+
 st.set_page_config(
     page_title="Estadísticas Parkinson", page_icon="⬇", layout="wide"
 )
@@ -17,8 +23,8 @@ def read_file(filename):
     
 s3 = boto3.resource('s3', region_name='us-east-2')  # should be validated with ENV? credentials
 ddb = boto3.resource('dynamodb', region_name='us-east-2')
-my_bucket = s3.Bucket('quantcldata/AUDIOS')
-s3data = my_bucket.objects.all()
+#my_bucket = s3.Bucket('quantcldata/AUDIOS')
+#s3data = my_bucket.objects.all()
 
-st.write('S3:', s3data)
-st.write('DymamoDB:', ddb)
+#st.write('S3:', s3data)
+st.write('DymamoDB:', scan_all('Users'))

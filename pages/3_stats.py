@@ -3,7 +3,7 @@ import pandas as pd
 import streamlit as st
 
 def scan_all(tablename):
-    dynamodb = boto3.resource('dynamodb')
+    dynamodb = boto3.resource('dynamodb', region_name='us-east-2')
     table = dynamodb.Table(tablename)
     resp = table.scan(ProjectionExpression="id, data")
     return resp['Items']

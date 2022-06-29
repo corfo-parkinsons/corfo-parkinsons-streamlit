@@ -1,6 +1,6 @@
 import boto3
 import pandas as pd
-import streamlit
+import streamlit as st
 
 st.set_page_config(
     page_title="Estadísticas Parkinson", page_icon="⬇", layout="wide"

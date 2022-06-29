@@ -1,6 +1,7 @@
 import boto3, s3fs
 import pandas as pd
 import streamlit as st
+from collections import Counter
 
 def scan_all(tablename):
     dynamodb = boto3.resource('dynamodb', region_name='us-east-2')
@@ -28,5 +29,5 @@ ddb = boto3.resource('dynamodb', region_name='us-east-2')
 
 #st.write('S3:', s3data)
 audios = scan_all('audios')
-adata = [audio['id'] for audio in audios]
+adata = Counter([audio['id'] for audio in audios])
 st.write('DymamoDB:', adata)

@@ -15,8 +15,8 @@ def read_file(filename):
     with fs.open(filename) as f:
         return f.read().decode("utf-8")
     
-s3 = boto3.resource('s3')  # should be validated with ENV? credentials
-ddb = boto3.resource('dynamodb')
+s3 = boto3.resource('s3', region_name='us-east-2')  # should be validated with ENV? credentials
+ddb = boto3.resource('dynamodb', region_name='us-east-2')
 
 st.write('S3:', s3)
 st.write('DymamoDB:', ddb)

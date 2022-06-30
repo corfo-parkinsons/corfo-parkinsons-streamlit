@@ -11,7 +11,7 @@ def run():
     )
 
     st.write("# Parkinson Dash Streamlit! 👋")
-    st.image('logoCP.jpg')
+    st.image('logoCP.jpg', width=200)
     st.sidebar.success("Elige una demo.")
 
     st.markdown(

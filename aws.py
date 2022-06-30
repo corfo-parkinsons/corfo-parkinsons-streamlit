@@ -16,3 +16,20 @@ def audio_summary():
 
 
     return cdf.user.value_counts()
+#############
+import boto3, s3fs
+import pandas as pd
+from collections import Counter
+
+def scan_all(tablename):
+    dynamodb = boto3.resource('dynamodb', region_name='us-east-2')
+    table = dynamodb.Table(tablename)
+    resp = table.scan(ProjectionExpression="id, email")
+    return resp['Items']
+
+def scan_pats():
+    dynamodb = boto3.resource('dynamodb', region_name='us-east-2')
+    table = dynamodb.Table('Pacientes')
+    return table.scan()['Items']
+
+

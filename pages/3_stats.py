@@ -5,12 +5,6 @@ import pandas as pd
 import streamlit as st
 from collections import Counter
 
-def scan_all(tablename):
-    dynamodb = boto3.resource('dynamodb', region_name='us-east-2')
-    table = dynamodb.Table(tablename)
-    resp = table.scan(ProjectionExpression="id, email")
-    return resp['Items']
-
 st.set_page_config(
     page_title="Estadísticas Parkinson", page_icon="⬇", layout="wide"
 )
@@ -40,6 +34,6 @@ s3_audiolist = audio_summary()
 st.write('<H2>S3 audios</H2>')
 st.write(s3_audiolist)
 
-pat_list = scan_all('Pacientes')
+pat_list = scan_pats()
 st.write('Pacientes')
 st.write(pat_list)

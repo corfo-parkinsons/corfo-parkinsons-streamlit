@@ -35,6 +35,7 @@ adata = Counter([audio['id'] for audio in audios])
 st.write('DymamoDB:', adata)
 st.write('-'*80)
 
-s3_audiolist = audio_list()
+#s3_audiolist = audio_list()
+s3_audiolist = audio_summary()
 st.write('<H2>S3 audios</H2>')
 st.write(s3_audiolist)

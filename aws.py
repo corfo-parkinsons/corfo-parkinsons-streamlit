@@ -10,8 +10,9 @@ def audio_list():
 def audio_summary():
     conn = client('s3')  
     objects = conn.list_objects(Bucket='quantcldata',Prefix='AUDIOS/AUDIO')
+
     cdf = pd.DataFrame(objects['Contents'])
-    cdf['user'] = cdf.Key.apply(lambnda k: k.split('/')[-1].split('_')[1:])
+    cdf['user'] = cdf.Key.apply(lambda k: k.split('/')[-1].split('_')[1:][0])
 
 
-    return cdf
+    return cdf.user.value_counts()

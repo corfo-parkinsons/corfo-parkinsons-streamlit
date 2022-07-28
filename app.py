@@ -15,7 +15,7 @@ def run():
     st.image('logoCP.jpg', width=200)
     st.sidebar.success("Elige una página.")
 
-    st.dataframe(schedule())
+    st.dataframe(schedules())
 
 if __name__ == "__main__":
     run()

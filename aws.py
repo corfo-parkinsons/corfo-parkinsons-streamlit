@@ -32,4 +32,9 @@ def scan_pats():
     table = dynamodb.Table('Pacientes')
     return table.scan()['Items']
 
+import requests
+def schedules():
+    
+    URL = 'https://quantcldata.s3.us-east-2.amazonaws.com/CLIENTES/CORFO/pacientes_test.json'
+    return pd.read_json(URL)
 

@@ -60,7 +60,7 @@ def freqs(d):
     ds = d[1:700]
     cuts1 = [ds.index(toke) for toke in ["'F0'","'F1'","'F2'","'F3'","'F4'"]]  # es distinto para "'F0dev'", "'rapJitter'"]]
     cuts2 = [float(ds[cut:].split("'")[3].split(' ')[0]) for cut in cuts1]    #  'F1': '815 
-    for toke in ['rapJitter']:
+    for toke in ['rapJitter','localShimmer']:
         tx = getit(ds, toke)
         cuts2.append(tx)
     return cuts2

@@ -28,8 +28,9 @@ def run():
     dfa['localShimmer'] = full_audio['nfa'].apply(lambda nfa: nfa[6])
 
     fdf = pd.DataFrame(dfa)
+    st.header('Variabilidad Medida en Pacientes (coeficientes normalizados)')
     st.line_chart(data=fdf)
-    st.dataframe(full_audio)
+    #st.dataframe(full_audio)
     
 
 if __name__ == "__main__":

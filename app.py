@@ -17,6 +17,10 @@ def run():
 
     st.dataframe(schedules())
     full_audio = audio_data(True)
+    # now norm+plot it!
+    base = [144,815,1486,2903,3722]
+    full_audio['nfa'] = full_audio['coefs'].apply(lambda c: [(cix/bix) for cix, bix in zip(c,base)])
+    full_audio = full_audio.drop(columns=['coefs'])
     st.dataframe(full_audio)
     
 

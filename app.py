@@ -21,7 +21,11 @@ def run():
     base = [144,815,1486,2903,3722]
     full_audio['nfa'] = full_audio['coefs'].apply(lambda c: [(cix/bix) for cix, bix in zip(c,base)])
     full_audio = full_audio.drop(columns=['coefs'])
-    st.line_chart(data=full_audio[['id','nfa']])
+    dfa = {}
+    for ix in range(5):
+        dfa['F%d' %ix] = full_audio['nfa'].apply(lambda nfa: nfa[ix])
+    fdf = pd.DataFrame(dict(dfa))
+    st.line_chart(data=fdf)
     st.dataframe(full_audio)
     
 

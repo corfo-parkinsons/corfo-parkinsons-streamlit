@@ -75,7 +75,7 @@ if selection:
     ## ahora los audios
     ## plots stolen from: https://github.com/phrasenmaeher/audio-transformation-visualization/blob/main/visualize_transformation.py
 
-    audios = glob.glob('AUDIO/NEW/*.ogg')
+    audios = glob.glob('AUDIO/NEW/*.wav')
     audios = [fn.replace('AUDIO/NEW/','') for fn in audios if 'JOMAX' in fn]
     st.write(audios)
 

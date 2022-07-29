@@ -54,7 +54,8 @@ def freqs(d):
     #    'F2': '1284 [M=(1160,1300), F=(1380,1820)]', 'F3': '2247 [M=(2520,3020), F=(2750,3250)]', 'F4': '3431 [M=(3700,4250), F=(4050,4550)]', 
     #    'F2/F1': '2.140 [a=1.6,e=3.4,6.8,2.4]'}")}
     ds = d[1:700]
-    return ds
+    cuts = [ds.index(toke) for toke in ["'F0'","'F1'","'F2'","'F3'","'F4'",]]
+    return cuts
 
 def audio_data(all=False):
     dynamodb = ddb()

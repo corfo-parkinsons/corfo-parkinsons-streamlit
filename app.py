@@ -24,6 +24,8 @@ def run():
     dfa = {}
     for ix in range(5):
         dfa['F%d' %ix] = full_audio['nfa'].apply(lambda nfa: nfa[ix])
+    dfa['rap'] = full_audio['nfa'].apply(lambda nfa: nfa[5])
+    
     fdf = pd.DataFrame(dfa)
     st.line_chart(data=fdf)
     st.dataframe(full_audio)

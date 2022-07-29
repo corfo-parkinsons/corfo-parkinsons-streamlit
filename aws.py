@@ -62,7 +62,7 @@ def freqs(d):
     cuts2 = [float(ds[cut:].split("'")[3].split(' ')[0]) for cut in cuts1]    #  'F1': '815 
     for toke in ['rapJitter']:
         tx = getit(ds, toke)
-        cuts2 = cuts2.append(tx)
+        cuts2.append(tx)
     return cuts2
 
 def audio_data(all=False):

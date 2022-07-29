@@ -21,14 +21,16 @@ import boto3, s3fs
 import pandas as pd
 from collections import Counter
 
+def ddb():
+    return boto3.resource('dynamodb', region_name='us-east-2')
 def scan_all(tablename):
-    dynamodb = boto3.resource('dynamodb', region_name='us-east-2')
+    dynamodb = ddb()
     table = dynamodb.Table(tablename)
     resp = table.scan(ProjectionExpression="id, email")
     return resp['Items']
 
 def scan_pats():
-    dynamodb = boto3.resource('dynamodb', region_name='us-east-2')
+    dynamodb = ddb()
     table = dynamodb.Table('Pacientes')
     return table.scan()['Items']
 
@@ -39,7 +41,7 @@ def schedules():
     return pd.read_json(URL)
 
 def audio_data(all=False):
-    dynamodb=boto3.resource('dynamodb')
+    dynamodb = ddb()
     table=dynamodb.Table('audios')
     data=table.scan()
     print('N=', data['Count'])

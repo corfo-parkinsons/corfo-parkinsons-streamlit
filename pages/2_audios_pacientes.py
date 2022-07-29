@@ -76,12 +76,14 @@ if selection:
     ## plots stolen from: https://github.com/phrasenmaeher/audio-transformation-visualization/blob/main/visualize_transformation.py
 
     audios = glob.glob('AUDIO/NEW/*.ogg')
-
+    audios = [fn.replace('AUDIO/NEW/','') for fn in audios if 'JOMAX' in fn]
     st.write(audios)
 
-    for _, row in pdf.iterrows():   # una fila por cada registro existente
-        st.write(row['fecha'])
-        filename = 'PACIENTES/'+row['Archivo audio']
+    for fn in audios:   # una fila por cada registro existente
+        filename = 'AUDIO/NEW/'+fn
+    #for _, row in pdf.iterrows():   # una fila por cada registro existente
+        #st.write(row['fecha'])
+        #filename = 'PACIENTES/'+row['Archivo audio']
         audio_bytes = open(filename, 'rb').read()
         y,sr = dubread(filename)
         

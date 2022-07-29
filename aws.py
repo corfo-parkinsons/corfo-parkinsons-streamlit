@@ -44,6 +44,10 @@ def dt(di):
     ts = di.split('"')[0].split('(')[2].split(',')[:6]
     return [int(t) for t in ts]
 
+def getit(text, toke):
+    rj = text.index(toke)
+    return float(text[rj:].split(' ')[1][:-1])
+
 def freqs(d):
     # {'JOMAX Contacto': (5221716593, datetime.datetime(2022, 7, 29, 22, 1, 9, tzinfo=<UTC>), 
     #  "{'F0': '193 [M=(100,165), F=(190,262)]', 'F0dev': 16.9653, 'hnr': '20 [16.5, 20]', 
@@ -56,6 +60,9 @@ def freqs(d):
     ds = d[1:700]
     cuts1 = [ds.index(toke) for toke in ["'F0'","'F1'","'F2'","'F3'","'F4'"]]  # es distinto para "'F0dev'", "'rapJitter'"]]
     cuts2 = [float(ds[cut:].split("'")[3].split(' ')[0]) for cut in cuts1]    #  'F1': '815 
+    for toke in ['rapJitter']:
+        tx = getit(ds, toke)
+        cuts2.append(tx)
     return cuts2
 
 def audio_data(all=False):

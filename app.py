@@ -16,6 +16,9 @@ def run():
     st.sidebar.success("Elige una página.")
 
     st.dataframe(schedules())
+    full_audio = audio_data(True)
+    st.dataframe(full_audio)
+    
 
 if __name__ == "__main__":
     run()

@@ -1,5 +1,6 @@
 import altair as alt
 import pandas as pd
+import glob
 
 from plotters import plot_wave, plot_spec, dubread
 
@@ -66,11 +67,18 @@ if selection:
         ndf[nc]/=ndf[nc].max()
         charts.append(alt.Chart(ndf, title=title).mark_line().encode(x=alt.X("fecha", axis=alt.Axis(labelAngle=0)),        ## wanna rotate!
                                                                      y=alt.Y(f"F{f}", scale=alt.Scale(zero=False))))
-    st.altair_chart((charts[0]+charts[1]+charts[2]+charts[3]+charts[4]).configure_title(fontSize=24).interactive(), 
+
+    if False:  # NOT TONIGHT dear
+        st.altair_chart((charts[0]+charts[1]+charts[2]+charts[3]+charts[4]).configure_title(fontSize=24).interactive(), 
                     use_container_width=True)
     
     ## ahora los audios
     ## plots stolen from: https://github.com/phrasenmaeher/audio-transformation-visualization/blob/main/visualize_transformation.py
+
+    audios = glob.glob('AUDIO/NEW/*.ogg')
+
+    st.write(audios)
+
     for _, row in pdf.iterrows():   # una fila por cada registro existente
         st.write(row['fecha'])
         filename = 'PACIENTES/'+row['Archivo audio']

@@ -38,3 +38,21 @@ def schedules():
     URL = 'https://quantcldata.s3.us-east-2.amazonaws.com/CLIENTES/CORFO/pacientes_test.json'
     return pd.read_json(URL)
 
+def audio_data(all=False):
+    dynamodb=boto3.resource('dynamodb')
+    table=dynamodb.Table('audios')
+    data=table.scan()
+    print('N=', data['Count'])
+
+    summary = Counter([di['id'] for di in data['Items']])
+    adf = pd.DataFrame(data['Items'])
+    #adf['time'] = eval(','.join(adf['data'].apply(dt).split(',')[:5]))
+    adf['time'] = adf['data'].apply(dt)
+    adf['fecha'] = adf.time.apply(lambda t: '%d-%02d-%02d' %(t[0],t[1],t[2]))
+    adf['hora'] = adf.time.apply(lambda t: '%d:%02d:%02d' %(t[3],t[4],t[5]))
+    print(summary)
+    if all:
+        return adf
+    else:
+        return adf[['id','time','fecha','hora']].sort_values(['fecha','hora'])
+

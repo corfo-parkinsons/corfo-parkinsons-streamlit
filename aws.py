@@ -55,7 +55,7 @@ def freqs(d):
     #    'F2/F1': '2.140 [a=1.6,e=3.4,6.8,2.4]'}")}
     ds = d[1:700]
     cuts1 = [ds.index(toke) for toke in ["'F0'","'F1'","'F2'","'F3'","'F4'",]]
-    cuts2 = [ds[cut:].split("'")[2].split(' ')[0] for cut in cuts1]    #  'F1': '815 
+    cuts2 = [ds[cut:].split("'")[3].split(' ')[0] for cut in cuts1]    #  'F1': '815 
     return cuts2
 
 def audio_data(all=False):

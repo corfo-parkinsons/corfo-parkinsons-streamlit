@@ -92,7 +92,7 @@ if selection:
         fecha, hora, size, fn = row.values
 
         filename = 'AUDIO/NEW/'+fn.replace('.ogg','.wav')
-        st.write(fn)
+        st.write([fecha, hora])
         # [1] fecha/hora
         # [2] print coefs
 

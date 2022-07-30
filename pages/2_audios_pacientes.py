@@ -96,14 +96,13 @@ if selection:
             st.write(f'Fecha: {fecha} Hora: {hora}')
         # [1] fecha/hora
         # [2] print coefs
-# 528
-*8   
-.audio_bytes = open(filename, 'rb').read()
-        y,sr = dubread(filename)
-        
-        col1, col2 = st.columns([1,1])
-        with col1:
-            st.pyplot(plot_wave(y, sr))
-        with col2:   # audio was inside col3
-            st.audio(audio_bytes, format='audio/wav')
-            st.pyplot(plot_spec(y, sr))
+ 
+            audio_bytes = open(filename, 'rb').read()
+            y,sr = dubread(filename)
+
+            col1, col2 = st.columns([1,1])
+            with col1:
+                st.pyplot(plot_wave(y, sr))
+            with col2:   # audio was inside col3
+                st.audio(audio_bytes, format='audio/wav')
+                st.pyplot(plot_spec(y, sr))

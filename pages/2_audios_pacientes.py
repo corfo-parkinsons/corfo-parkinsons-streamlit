@@ -56,18 +56,18 @@ if selection:
         paciente = selection["selected_rows"][0]['Paciente'] 
     except:
         paciente = 'Paciente 2'
-    pdf = sdf[sdf.Paciente==paciente]
-    pdf['fecha'] = pdf['Archivo audio'].apply(lambda aa: aa.split('_')[1])
+    #pdf = sdf[sdf.Paciente==paciente]
+    #pdf['fecha'] = pdf['Archivo audio'].apply(lambda aa: aa.split('_')[1])
     
     #st.write("You selected:", paciente) #, pdf.columns)
     #st.json(selection["selected_rows"])
     title = f'Frecuencias normalizadas {paciente}'
     charts = []
-    for f in range(5):
-        ndf = pdf.copy(); nc=f'F{f}'
-        ndf[nc]/=ndf[nc].max()
-        charts.append(alt.Chart(ndf, title=title).mark_line().encode(x=alt.X("fecha", axis=alt.Axis(labelAngle=0)),        ## wanna rotate!
-                                                                     y=alt.Y(f"F{f}", scale=alt.Scale(zero=False))))
+    #for f in range(5):
+    #    ndf = pdf.copy(); nc=f'F{f}'
+    #    ndf[nc]/=ndf[nc].max()
+    #    charts.append(alt.Chart(ndf, title=title).mark_line().encode(x=alt.X("fecha", axis=alt.Axis(labelAngle=0)),        ## wanna rotate!
+    #                                                                 y=alt.Y(f"F{f}", scale=alt.Scale(zero=False))))
 
     if False:  # NOT TONIGHT dear
         pass

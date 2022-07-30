@@ -92,17 +92,13 @@ if selection:
         fecha, hora, size, fn = row.values
 
         filename = 'AUDIO/NEW/'+fn.replace('.ogg','.wav')
-        st.write(f'Fecha: {fecha} Hora: {hora}')
+        if fecha in ('2022-07-29','2022-07-30'):
+            st.write(f'Fecha: {fecha} Hora: {hora}')
         # [1] fecha/hora
         # [2] print coefs
-
-
-
-
-    #for _, row in pdf.iterrows():   # una fila por cada registro existente
-        #st.write(row['fecha'])
-        #filename = 'PACIENTES/'+row['Archivo audio']
-        audio_bytes = open(filename, 'rb').read()
+# 528
+*8   
+.audio_bytes = open(filename, 'rb').read()
         y,sr = dubread(filename)
         
         col1, col2 = st.columns([1,1])

@@ -89,7 +89,7 @@ if selection:
     
 
     for _, row in audio_data.iterrows():   # una fila por cada registro existente
-        fecha, hora, size, fn = row.values()
+        fecha, hora, size, fn = row.values
 
         filename = 'AUDIO/NEW/'+fn
         st.write(fn)

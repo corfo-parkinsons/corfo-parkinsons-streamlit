@@ -91,7 +91,7 @@ if selection:
     for _, row in audio_data.iterrows():   # una fila por cada registro existente
         fecha, hora, size, fn = row.values
 
-        filename = 'AUDIO/NEW/'+fn
+        filename = 'AUDIO/NEW/'+fn.replace('.ogg','.wav')
         st.write(fn)
         # [1] fecha/hora
         # [2] print coefs

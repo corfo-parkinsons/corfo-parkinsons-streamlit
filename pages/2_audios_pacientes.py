@@ -1,6 +1,7 @@
 import altair as alt
 import pandas as pd
 import glob
+from s3link import *
 
 from plotters import plot_wave, plot_spec, dubread
 
@@ -58,7 +59,7 @@ if selection:
     pdf = sdf[sdf.Paciente==paciente]
     pdf['fecha'] = pdf['Archivo audio'].apply(lambda aa: aa.split('_')[1])
     
-    st.write("You selected:", paciente) #, pdf.columns)
+    #st.write("You selected:", paciente) #, pdf.columns)
     #st.json(selection["selected_rows"])
     title = f'Frecuencias normalizadas {paciente}'
     charts = []
@@ -69,11 +70,15 @@ if selection:
                                                                      y=alt.Y(f"F{f}", scale=alt.Scale(zero=False))))
 
     if False:  # NOT TONIGHT dear
-        st.altair_chart((charts[0]+charts[1]+charts[2]+charts[3]+charts[4]).configure_title(fontSize=24).interactive(), 
-                    use_container_width=True)
+        pass
+        #st.altair_chart((charts[0]+charts[1]+charts[2]+charts[3]+charts[4]).configure_title(fontSize=24).interactive(), 
+        #            use_container_width=True)
     
     ## ahora los audios
     ## plots stolen from: https://github.com/phrasenmaeher/audio-transformation-visualization/blob/main/visualize_transformation.py
+
+    audio_data = user_oggs('JOMAX')
+    st.write(audio_data)
 
     audios = glob.glob('AUDIO/NEW/*.wav')
     audios = [fn.replace('AUDIO/NEW/','') for fn in audios if 'JOMAX' in fn]
@@ -81,6 +86,13 @@ if selection:
 
     for fn in audios:   # una fila por cada registro existente
         filename = 'AUDIO/NEW/'+fn
+        st.write(fn)
+        # [1] fecha/hora
+        # [2] print coefs
+
+
+
+
     #for _, row in pdf.iterrows():   # una fila por cada registro existente
         #st.write(row['fecha'])
         #filename = 'PACIENTES/'+row['Archivo audio']

@@ -78,15 +78,19 @@ if selection:
     ## plots stolen from: https://github.com/phrasenmaeher/audio-transformation-visualization/blob/main/visualize_transformation.py
 
     audio_data = user_oggs('JOMAX')
-    st.write('4reals?')
+    #st.write('4reals?')
     audio_data = pd.read_csv('cheater.csv')
     st.write(audio_data)
 
-    audios = glob.glob('AUDIO/NEW/*.wav')
-    audios = [fn.replace('AUDIO/NEW/','') for fn in audios if 'JOMAX' in fn]
-    st.write(audios)
+    #audios = glob.glob('AUDIO/NEW/*.wav')
+    #audios = [fn.replace('AUDIO/NEW/','') for fn in audios if 'JOMAX' in fn]
+    #st.write(audios)
 
-    for fn in audios:   # una fila por cada registro existente
+    
+
+    for _, row in audio_data.iterrows():   # una fila por cada registro existente
+        fecha, hora, size, fn = row.values()
+
         filename = 'AUDIO/NEW/'+fn
         st.write(fn)
         # [1] fecha/hora

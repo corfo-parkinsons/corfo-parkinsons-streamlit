@@ -93,7 +93,7 @@ if selection:
 
         filename = 'AUDIO/NEW/'+fn.replace('.ogg','.wav')
         if fecha in ('2022-07-29','2022-07-30'):
-            st.write(f'Fecha: {fecha} Hora: {hora}')
+            st.write(f'Fecha: {fecha} Hora: {hora}  [Archivo: {filename}')
         # [1] fecha/hora
         # [2] print coefs
  

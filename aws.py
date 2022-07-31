@@ -15,8 +15,8 @@ def audio_summary():
     objects = conn.list_objects(Bucket='quantcldata',Prefix='AUDIOS/AUDIO')
 
     cdf = pd.DataFrame(objects['Contents'])
-    cdf['user'] = cdf.Key.apply(lambda k: k.split('/')[-1].split('_')[1:][0])
-
+    cdf['user'] = cdf.Key.apply(lambda k: k.split('/')[-1].split('_'))
+    #cdf
 
     return cdf.user.value_counts()
 #############

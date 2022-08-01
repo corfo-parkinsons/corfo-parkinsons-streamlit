@@ -79,6 +79,7 @@ if selection:
     ## plots stolen from: https://github.com/phrasenmaeher/audio-transformation-visualization/blob/main/visualize_transformation.py
 
     audio_datos = user_oggs('JOMAX_Contacto')
+
     #st.write('4reals?')
     #audio_datos = pd.read_csv('cheater.csv')
     #st.write(audio_data)
@@ -93,9 +94,10 @@ if selection:
     st.header('audio_data')
     st.write(dd_df)
 
+    st.write('NADa=', len(audio_datos))
     st.header('audio_datos')
     st.write(audio_datos)
-
+    
     for _, row in audio_datos:
    # una fila por cada registro existente
         fecha, hora, size, fn = row

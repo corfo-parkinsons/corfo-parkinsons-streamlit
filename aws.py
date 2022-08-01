@@ -8,7 +8,9 @@ def audio_list():
     conn = client('s3')  # again assumes boto.cfg setup, assume AWS S3
     objects = conn.list_objects(Bucket='quantcldata',Prefix='AUDIOS/AUDIO')
     files = [key['Key']  for key in objects['Contents']]
-    return files
+    times = [key['LastModified']  for key in objects['Contents']]
+
+    return pd.DataFrame(dict(filename=files, time=times))
 
 def audio_summary():
     conn = client('s3')  

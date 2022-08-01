@@ -19,17 +19,18 @@ def run():
     full_audio = audio_data(True)
     # now norm+plot it!
     base = [144,815,1486,2903,3722,0.02,0.05]
-    full_audio['nfa'] = full_audio['coefs'].apply(lambda c: [(cix/bix) for cix, bix in zip(c,base)])
-    full_audio = full_audio.drop(columns=['coefs'])
-    dfa = {}
-    for ix in range(5):
-        dfa['F%d' %ix] = full_audio['nfa'].apply(lambda nfa: nfa[ix])
-    dfa['rapJitter'] = full_audio['nfa'].apply(lambda nfa: nfa[5])
-    dfa['localShimmer'] = full_audio['nfa'].apply(lambda nfa: nfa[6])
+    print(full_audio['coefs'])
+    #full_audio['nfa'] = full_audio['coefs'].apply(lambda c: [(cix/bix) for cix, bix in zip(c,base)])
+    #full_audio = full_audio.drop(columns=['coefs'])
+    #dfa = {}
+    #for ix in range(5):
+    #    dfa['F%d' %ix] = full_audio['nfa'].apply(lambda nfa: nfa[ix])
+    #dfa['rapJitter'] = full_audio['nfa'].apply(lambda nfa: nfa[5])
+    #dfa['localShimmer'] = full_audio['nfa'].apply(lambda nfa: nfa[6])
 
-    fdf = pd.DataFrame(dfa)
+    #fdf = pd.DataFrame(dfa)
     st.header('Variabilidad Medida en Pacientes (coeficientes normalizados)')
-    st.line_chart(data=fdf)
+    #st.line_chart(data=fdf)
     #st.dataframe(full_audio)
     
 

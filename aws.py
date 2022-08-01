@@ -41,7 +41,6 @@ def schedules():
     return pd.read_json(URL)
 
 def dt(di):   
-    #print('DIS', di.split('"')[0])
     try:
         ts = di.split('"')[0].split('(')[2].split(',')[:6]
     except:

@@ -122,5 +122,8 @@ def audio_data(all=False):
     out['time'] = out['time'].apply(lambda t: t if len(t)==6 else t[1])
     out['time'] = out['time'].apply(ts)
     out['coefs'] = out['data'].apply(get_coefs)
+
+    if 'data' in out:
+        out = out.drop(columns=['data'])
     return out
 

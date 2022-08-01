@@ -89,8 +89,10 @@ if selection:
 
     # leer y cruzar datos DynamoDB
     dd_df = audio_data(True)
+    dd_df['time'] = dd_df['time'].apply(str)
     st.header('audio_data')
     st.write(dd_df)
+
     st.header('audio_datos')
     st.write(audio_datos)
 

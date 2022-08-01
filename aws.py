@@ -20,14 +20,16 @@ def audio_summary():
 
     return cdf.user.value_counts()
 #############
-
 def ddb():
     return boto3.resource('dynamodb', region_name='us-east-2')
-def scan_all(tablename):
+
+def scan_table(tablename):
     dynamodb = ddb()
     table = dynamodb.Table(tablename)
-    resp = table.scan(ProjectionExpression="id, email")
-    return resp['Items']
+    #resp = table.scan(ProjectionExpression="id, data")
+    resp = table.scan()
+
+    return pd.DataFrame(resp['Items'])
 
 def scan_pats():
     dynamodb = ddb()
@@ -98,8 +100,8 @@ def get_coefs(d):
 
 
 def audio_data(all=False):
-
-    adf = get_df(table='audios_pacientes')        # id, data(3+12)
+    # should be get_df(table='audios_pacientes')
+    adf = scan_table('audios_pacientes')        # id, data(3+12)
 
     adf['time'] = adf['data'].apply(dt)
     #adf['fecha'] = adf.time.apply(lambda t: '%d-%02d-%02d' %(t[0],t[1],t[2]))

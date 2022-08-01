@@ -78,7 +78,8 @@ if selection:
     ## ahora los audios
     ## plots stolen from: https://github.com/phrasenmaeher/audio-transformation-visualization/blob/main/visualize_transformation.py
 
-    audio_datos = user_oggs('JOMAX_Contacto')
+    #audio_datos = user_oggs('JOMAX_Contacto')
+    audio_datos = audio_list()
 
     #st.write('4reals?')
     #audio_datos = pd.read_csv('cheater.csv')

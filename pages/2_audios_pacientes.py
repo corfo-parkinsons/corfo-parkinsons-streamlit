@@ -1,8 +1,9 @@
 import altair as alt
 import pandas as pd
 import glob
-from s3link import *
 
+from s3link import *
+from aws import *
 from plotters import plot_wave, plot_spec, dubread
 
 import streamlit as st
@@ -77,26 +78,30 @@ if selection:
     ## ahora los audios
     ## plots stolen from: https://github.com/phrasenmaeher/audio-transformation-visualization/blob/main/visualize_transformation.py
 
-    audio_data = user_oggs('JOMAX')
+    audio_datos = user_oggs('JOMAX_Contacto')
     #st.write('4reals?')
-    audio_data = pd.read_csv('cheater.csv')
+    #audio_datos = pd.read_csv('cheater.csv')
     #st.write(audio_data)
 
     #audios = glob.glob('AUDIO/NEW/*.wav')
     #audios = [fn.replace('AUDIO/NEW/','') for fn in audios if 'JOMAX' in fn]
     #st.write(audios)
 
-    
+    # leer y cruzar datos DynamoDB
+    dd_df = audio_data(True)
 
-    for _, row in audio_data.iterrows():   # una fila por cada registro existente
-        fecha, hora, size, fn = row.values
+    for _, row in audio_datos:
+   # una fila por cada registro existente
+        fecha, hora, size, fn = row
 
         filename = 'AUDIO/NEW/'+fn.replace('.ogg','.wav')
-        if fecha in ('2022-07-29','2022-07-30'):
+        #if fecha in ('2022-07-29','2022-07-30',):
+        if JOMAX in filename:
             st.write(f'Fecha: {fecha} Hora: {hora}  [Archivo: {filename}')
+
         # [1] fecha/hora
         # [2] print coefs
- 
+            # try to match! 
             audio_bytes = open(filename, 'rb').read()
             y,sr = dubread(filename)
 

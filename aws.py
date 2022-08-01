@@ -41,8 +41,13 @@ def schedules():
     return pd.read_json(URL)
 
 def dt(di):   
-    ts = di.split('"')[0].split('(')[2].split(',')[:6]
-    return [int(t) for t in ts]
+    #print('DIS', di.split('"')[0])
+    try:
+        ts = di.split('"')[0].split('(')[2].split(',')[:6]
+    except:
+        ts = di.split('"')[0].split(',')        
+    #return [int(t) for t in ts]
+    return ts
 
 def getit(text, toke):
     rj = text.index(toke)
@@ -58,28 +63,63 @@ def freqs(d):
     #    'F2': '1284 [M=(1160,1300), F=(1380,1820)]', 'F3': '2247 [M=(2520,3020), F=(2750,3250)]', 'F4': '3431 [M=(3700,4250), F=(4050,4550)]', 
     #    'F2/F1': '2.140 [a=1.6,e=3.4,6.8,2.4]'}")}
     ds = d[1:700]
-    cuts1 = [ds.index(toke) for toke in ["'F0'","'F1'","'F2'","'F3'","'F4'"]]  # es distinto para "'F0dev'", "'rapJitter'"]]
-    cuts2 = [float(ds[cut:].split("'")[3].split(' ')[0]) for cut in cuts1]    #  'F1': '815 
+    FREQ_TOKES = ["'F0'","'F1'","'F2'","'F3'","'F4'"]
+    cuts1 = [ds.index(toke) for toke in FREQ_TOKES]  # es distinto para "'F0dev'", "'rapJitter'"]]
+    #print(cuts1)
+    #cuts2 = [float(ds[cut:].split("'")[3].split(' ')[0]) for cut in cuts1]    #  'F1': '815 
+    cuts2 = [ds[cut:].split("'")[3] for cut in cuts1[:-1]]   # F4 is missing
+    #cut4 = ds[cuts1[-1]].split("'")[2].split(' ')[1]
+    
     for toke in ['rapJitter','localShimmer']:
         tx = getit(ds, toke)
         cuts2.append(tx)
+
     return cuts2
 
-def audio_data(all=False):
-    dynamodb = ddb()
-    table=dynamodb.Table('audios')
-    data=table.scan()
-    print('N=', data['Count'])
+from dynamo_pandas import get_df
+def ts(t):
+    if isinstance(t,str):
+        t1,t2=t.split()
+        t12 = t1.split('-')+t2.split('-')
+        return [int(tx.replace("'","")) for tx in t12]
+    else:
+        return t
 
-    summary = Counter([di['id'] for di in data['Items']])
-    adf = pd.DataFrame(data['Items'])
+def get_coefs(d):
+    #eval(dd_df.iloc[0]['data'])
+    #dd_df.iloc[3]['data'].find("'F0'")
+    #dd_df.iloc[3]['data'].find("'F2/F1'")
+    try:
+        return eval(d)['JOMAX Contacto'][2]
+    except:
+        start = d.find("'F0'")
+        stop  = d.find("'F2/F1'")
+        return d[start:stop]
+
+
+
+def audio_data(all=False):
+
+    adf = get_df(table='audios_pacientes')        # id, data(3+12)
+
     adf['time'] = adf['data'].apply(dt)
-    adf['fecha'] = adf.time.apply(lambda t: '%d-%02d-%02d' %(t[0],t[1],t[2]))
-    adf['hora'] = adf.time.apply(lambda t: '%d:%02d:%02d' %(t[3],t[4],t[5]))
-    adf['coefs'] = adf['data'].apply(freqs)
+    #adf['fecha'] = adf.time.apply(lambda t: '%d-%02d-%02d' %(t[0],t[1],t[2]))
+    #adf['hora'] = adf.time.apply(lambda t: '%d:%02d:%02d' %(t[3],t[4],t[5]))
+    #adf['coefs'] = adf['data'].apply(freqs)
     #print(summary)
     if all:
-        return adf[['id','fecha','hora','coefs']]
+        #return adf[['id','fecha','hora','coefs']]
+        out = adf[['id','time','data']]
     else:
-        return adf[['id','time','fecha','hora']].sort_values(['fecha','hora'])
+        #return adf[['id','time','fecha','hora']].sort_values(['fecha','hora'])
+        out = adf[['id','time']] #,'fecha','hora']].sort_values(['fecha','hora'])
+
+    out = out[out.id.str.contains('JOMAX')]
+    #out['time'] = out['time'].apply(lambda t: t[1]
+    #                                    if isinstance(t,list) and isinstance(t[0],str)
+    #                                    else t)
+    out['time'] = out['time'].apply(lambda t: t if len(t)==6 else t[1])
+    out['time'] = out['time'].apply(ts)
+    out['coefs'] = out['data'].apply(get_coefs)
+    return out
 

@@ -117,7 +117,7 @@ def audio_data(all=False):
         #return adf[['id','time','fecha','hora']].sort_values(['fecha','hora'])
         out = adf[['id','time']] #,'fecha','hora']].sort_values(['fecha','hora'])
 
-    out = out[out.id.str.contains('JOMAX')]
+    #out = out[out.id.str.contains('JOMAX')]
     #out['time'] = out['time'].apply(lambda t: t[1]
     #                                    if isinstance(t,list) and isinstance(t[0],str)
     #                                    else t)

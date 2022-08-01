@@ -89,7 +89,7 @@ if selection:
 
     # leer y cruzar datos DynamoDB
     dd_df = audio_data(True)
-    st.header('audio_data');st.dataframe(audio_data)
+    st.header('audio_data');st.dataframe(dd_df)
     st.header('audio_datos');st.write(audio_datos)
 
     for _, row in audio_datos:

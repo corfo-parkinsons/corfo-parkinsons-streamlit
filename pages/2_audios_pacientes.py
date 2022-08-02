@@ -27,6 +27,7 @@ audio_datos = s3_audio_list()
 
 # leer y cruzar datos DynamoDB
 dd_df = audio_data(True)
+dd_df = dd_df[dd_df.data.str.contains('JOMAX')]
 #dd_df['time'] = dd_df['time'].apply(str)
 st.header('audio_data (from DynamoDB)')
 st.write(dd_df)

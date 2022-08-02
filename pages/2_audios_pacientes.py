@@ -7,9 +7,6 @@ from aws import s3_audio_list, audio_data
 from plotters import plot_wave, plot_spec, dubread
 
 import streamlit as st
-st.set_page_config(
-    page_title="Farmacodinámica Parkinson", page_icon="⬇", layout="wide"
-)
 
 url1 = 'https://share.streamlit.io/sergiolucero/st1/main/app.py'
 url2 = url1.replace('st1','st2')

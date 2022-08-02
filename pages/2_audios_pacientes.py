@@ -53,10 +53,16 @@ for _, ogg_row in s3ogg_datos.iterrows():
     wav_file = mp3_file.replace('.mp3','.wav')
     y,sr = dubread(wav_file)   # fix this!
 
+    short_mp3 = mp3_file.replace('AUDIOS/AUDIO/','')
+    short_wav = wav_file.replace('AUDIOS/AUDIO/','')
+    
     col1, col2 = st.columns([1,1])
     with col1:
         #pass
-        st.write(mp3_file.replace('AUDIOS/AUDIO/',''))
+        st.write(short_mp3)
+        with open(wav_file, 'rb') as f:
+            st.download_button('Descargar WAV', f, file_name=short_wav)  # Defaults to 'application/octet-stream'
+
         #st.pyplot(plot_wave(y, sr))
     with col2:   # audio was inside col3
         st.audio(audio_bytes, format='audio/wav')   

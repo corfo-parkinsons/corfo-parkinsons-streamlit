@@ -3,12 +3,10 @@ import pandas as pd
 import glob
 
 from s3link import *
-from aws import *
+from aws import s3_audio_data, audio_list
 from plotters import plot_wave, plot_spec, dubread
 
 import streamlit as st
-from st_aggrid import AgGrid, GridOptionsBuilder
-from st_aggrid.shared import GridUpdateMode
 
 url1 = 'https://share.streamlit.io/sergiolucero/st1/main/app.py'
 url2 = url1.replace('st1','st2')
@@ -23,100 +21,40 @@ st.write("registro de medicaciones y mediciones de pacientes")
 html = f'<A HREF="{url1}">Farmacodinámica</A>'
 #st.components.v1.html(html)
 
-def aggrid_interactive_table(df: pd.DataFrame):
-    
-    options = GridOptionsBuilder.from_dataframe(
-        df, enableRowGroup=True, enableValue=True, enablePivot=True)
+title = f'Frecuencias normalizadas {paciente}'
+charts = []
+audio_datos = audio_list()
 
-    options.configure_side_bar()
+# leer y cruzar datos DynamoDB
+dd_df = audio_data(True)
+dd_df['time'] = dd_df['time'].apply(str)
+st.header('audio_data')
+st.write(dd_df)
 
-    options.configure_selection("single")
-    selection = AgGrid(
-        df,
-        enable_enterprise_modules=True,
-        gridOptions=options.build(),
-        theme="dark", height=200,
-        update_mode=GridUpdateMode.MODEL_CHANGED,
-        allow_unsafe_jscode=True,
-    )
+#st.write('NADa=', len(audio_datos))
+st.header('audio_datos')
+st.write(audio_datos)
 
-    return selection
+for _, row in audio_datos.iterrows():
+# una fila por cada registro existente
+    fn = row['filename']
+    time = row['time']  # AWS time
+    fecha, hora, size, fn = row
 
-sdf = pd.read_csv('medicionesSergio.csv')
-adict = {f'F{ix}':['min','mean','max'] for ix in range(5)}
-gdf = sdf.groupby('Paciente', as_index=False).agg(adict).round(1)
-#st.write(gdf)
-gdf = pd.DataFrame(gdf)
-gdf.columns = [''.join(gc) for gc in gdf.columns]
-#st.write(gdf.columns)
+    filename = 'AUDIO/NEW/'+fn.replace('.ogg','.wav')
+    #if fecha in ('2022-07-29','2022-07-30',):
+    if JOMAX in filename:
+        st.write(f'Fecha: {fecha} Hora: {hora}  [Archivo: {filename}')
 
-selection = aggrid_interactive_table(df=gdf)
+    # [1] fecha/hora
+    # [2] print coefs
+        # try to match! 
+        audio_bytes = open(filename, 'rb').read()
+        y,sr = dubread(filename)
 
-if selection:
-    try:
-        paciente = selection["selected_rows"][0]['Paciente'] 
-    except:
-        paciente = 'Paciente 2'
-    #pdf = sdf[sdf.Paciente==paciente]
-    #pdf['fecha'] = pdf['Archivo audio'].apply(lambda aa: aa.split('_')[1])
-    
-    #st.write("You selected:", paciente) #, pdf.columns)
-    #st.json(selection["selected_rows"])
-    title = f'Frecuencias normalizadas {paciente}'
-    charts = []
-    #for f in range(5):
-    #    ndf = pdf.copy(); nc=f'F{f}'
-    #    ndf[nc]/=ndf[nc].max()
-    #    charts.append(alt.Chart(ndf, title=title).mark_line().encode(x=alt.X("fecha", axis=alt.Axis(labelAngle=0)),        ## wanna rotate!
-    #                                                                 y=alt.Y(f"F{f}", scale=alt.Scale(zero=False))))
-
-    if False:  # NOT TONIGHT dear
-        pass
-        #st.altair_chart((charts[0]+charts[1]+charts[2]+charts[3]+charts[4]).configure_title(fontSize=24).interactive(), 
-        #            use_container_width=True)
-    
-    ## ahora los audios
-    ## plots stolen from: https://github.com/phrasenmaeher/audio-transformation-visualization/blob/main/visualize_transformation.py
-
-    #audio_datos = user_oggs('JOMAX_Contacto')
-    audio_datos = audio_list()
-
-    #st.write('4reals?')
-    #audio_datos = pd.read_csv('cheater.csv')
-    #st.write(audio_data)
-
-    #audios = glob.glob('AUDIO/NEW/*.wav')
-    #audios = [fn.replace('AUDIO/NEW/','') for fn in audios if 'JOMAX' in fn]
-    #st.write(audios)
-
-    # leer y cruzar datos DynamoDB
-    dd_df = audio_data(True)
-    dd_df['time'] = dd_df['time'].apply(str)
-    st.header('audio_data')
-    st.write(dd_df)
-
-    st.write('NADa=', len(audio_datos))
-    st.header('audio_datos')
-    st.write(audio_datos)
-    
-    for _, row in audio_datos:
-   # una fila por cada registro existente
-        fecha, hora, size, fn = row
-
-        filename = 'AUDIO/NEW/'+fn.replace('.ogg','.wav')
-        #if fecha in ('2022-07-29','2022-07-30',):
-        if JOMAX in filename:
-            st.write(f'Fecha: {fecha} Hora: {hora}  [Archivo: {filename}')
-
-        # [1] fecha/hora
-        # [2] print coefs
-            # try to match! 
-            audio_bytes = open(filename, 'rb').read()
-            y,sr = dubread(filename)
-
-            col1, col2 = st.columns([1,1])
-            with col1:
-                st.pyplot(plot_wave(y, sr))
-            with col2:   # audio was inside col3
-                st.audio(audio_bytes, format='audio/wav')
-                st.pyplot(plot_spec(y, sr))
+        col1, col2 = st.columns([1,1])
+        with col1:
+            st.pyplot(plot_wave(y, sr))
+        with col2:   # audio was inside col3
+            st.audio(audio_bytes, format='audio/wav')
+            st.pyplot(plot_spec(y, sr))

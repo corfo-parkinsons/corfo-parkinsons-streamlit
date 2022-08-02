@@ -4,7 +4,7 @@ from collections import Counter
 from boto3 import client
 import pandas as pd
 
-def audio_list():
+def s3_audio_list():
     conn = client('s3')  # again assumes boto.cfg setup, assume AWS S3
     objects = conn.list_objects(Bucket='quantcldata',Prefix='AUDIOS/AUDIO')
     files = [key['Key']  for key in objects['Contents']]
@@ -105,27 +105,21 @@ def audio_data(all=False):
     # should be get_df(table='audios_pacientes')
     adf = scan_table('audios_pacientes')        # id, data(3+12)
 
-    adf['time'] = adf['data'].apply(dt)
+    #adf['time'] = adf['data'].apply(dt)
     #adf['fecha'] = adf.time.apply(lambda t: '%d-%02d-%02d' %(t[0],t[1],t[2]))
     #adf['hora'] = adf.time.apply(lambda t: '%d:%02d:%02d' %(t[3],t[4],t[5]))
     #adf['coefs'] = adf['data'].apply(freqs)
     #print(summary)
-    if all:
-        #return adf[['id','fecha','hora','coefs']]
-        out = adf[['id','time','data']]
-    else:
-        #return adf[['id','time','fecha','hora']].sort_values(['fecha','hora'])
-        out = adf[['id','time']] #,'fecha','hora']].sort_values(['fecha','hora'])
-
+    
     #out = out[out.id.str.contains('JOMAX')]
     #out['time'] = out['time'].apply(lambda t: t[1]
     #                                    if isinstance(t,list) and isinstance(t[0],str)
     #                                    else t)
-    out['time'] = out['time'].apply(lambda t: t if len(t)==6 else t[1])
-    out['time'] = out['time'].apply(ts)
-    out['coefs'] = out['data'].apply(get_coefs)
+    #out['time'] = out['time'].apply(lambda t: t if len(t)==6 else t[1])
+    #out['time'] = out['time'].apply(ts)
+    #out['coefs'] = out['data'].apply(get_coefs)
 
-    if 'data' in out:
-        out = out.drop(columns=['data'])
+    #if 'data' in out:
+    #    out = out.drop(columns=['data'])
     return out
 

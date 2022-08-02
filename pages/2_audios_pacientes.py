@@ -48,6 +48,7 @@ for _, ogg_row in s3ogg_datos.iterrows():
     st.write(ogg_filename, matcher)
     match = s3mp3_datos[s3mp3_datos.filename.str.contains(matcher)]  # mp3_file
     st.write(match)
+    mp3_file = match.iloc[0]['filename']
 
     audio_bytes = open(mp3_file, 'rb').read()
     y,sr = dubread(mp3_file)

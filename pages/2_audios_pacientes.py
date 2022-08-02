@@ -46,33 +46,15 @@ for _, ogg_row in s3ogg_datos.iterrows():
     # look up mp3 (info)
     matcher = ogg_filename.replace(IN_FMT, '')
     st.write(ogg_filename, matcher)
-    match = s3mp3_datos[s3mp3_datos.filename.str.contains(matcher)]
+    match = s3mp3_datos[s3mp3_datos.filename.str.contains(matcher)]  # mp3_file
     st.write(match)
 
-#times = [eval(data)['JOMAX Contacto'][1] for data in ad2.data]
-#coefs = [eval(data)['JOMAX Contacto'][2] for data in ad2.data]
+    audio_bytes = open(mp3_file, 'rb').read()
+    y,sr = dubread(mp3_file)
 
-#ctdf = pd.DataFrame(dict(time=times, coeficientes=coefs))
-#st.dataframe(ctdf)
-
-for _, row in ad2.iterrows():
-# una fila por cada registro existente
-    row_dict = row['data']
-    #filename = 'AUDIO/NEW/'+fn.replace('.ogg','.wav')
-    #if fecha in ('2022-07-29','2022-07-30',):
-    #st.write(row_dict)
-    #st.write(f'Fecha: {fecha} Hora: {hora}  [Archivo: {filename}')
-
-    # [1] fecha/hora
-    # [2] print coefs
-        # try to match!
-    if False:
-        audio_bytes = open(filename, 'rb').read()
-        y,sr = dubread(filename)
-
-        col1, col2 = st.columns([1,1])
-        with col1:
-            st.pyplot(plot_wave(y, sr))
-        with col2:   # audio was inside col3
-            st.audio(audio_bytes, format='audio/wav')
-            st.pyplot(plot_spec(y, sr))
+    col1, col2 = st.columns([1,1])
+    with col1:
+        st.pyplot(plot_wave(y, sr))
+    with col2:   # audio was inside col3
+        st.audio(audio_bytes, format='audio/mp3')   
+        st.pyplot(plot_spec(y, sr))

@@ -3,7 +3,7 @@ import pandas as pd
 import glob
 
 from s3link import *
-from aws import s3_audio_data, audio_list
+from aws import s3_audio_list, audio_list
 from plotters import plot_wave, plot_spec, dubread
 
 import streamlit as st
@@ -23,7 +23,7 @@ html = f'<A HREF="{url1}">Farmacodinámica</A>'
 
 title = f'Frecuencias normalizadas {paciente}'
 charts = []
-audio_datos = audio_list()
+audio_datos = s3_audio_list()
 
 # leer y cruzar datos DynamoDB
 dd_df = audio_data(True)

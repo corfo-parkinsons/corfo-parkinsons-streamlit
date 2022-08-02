@@ -1,1 +1,2 @@
+ffprobe
 libsndfile1-dev

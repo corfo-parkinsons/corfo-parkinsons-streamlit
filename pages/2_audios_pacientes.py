@@ -61,4 +61,4 @@ for _, ogg_row in s3ogg_datos.iterrows():
     with col2:   # audio was inside col3
         st.audio(audio_bytes, format='audio/wav')   
         #st.audio(audio_bytes, format='audio/mp3')   
-        st.pyplot(plot_spec(y, sr))
+        #st.pyplot(plot_spec(y, sr))

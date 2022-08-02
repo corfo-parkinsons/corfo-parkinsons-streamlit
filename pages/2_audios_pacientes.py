@@ -47,15 +47,16 @@ for _, ogg_row in s3ogg_datos.iterrows():
     matcher = ogg_filename.replace(IN_FMT, '')
     st.write(ogg_filename, matcher)
     match = s3mp3_datos[s3mp3_datos.filename.str.contains(matcher)]  # mp3_file
-    st.write(match)
     mp3_file = match.iloc[0]['filename']
-
+    st.write(match, mp3_file)
+    
     audio_bytes = open(mp3_file, 'rb').read()
-    y,sr = dubread(mp3_file)
+    #y,sr = dubread(mp3_file)
 
     col1, col2 = st.columns([1,1])
     with col1:
-        st.pyplot(plot_wave(y, sr))
+        pass
+        #st.pyplot(plot_wave(y, sr))
     with col2:   # audio was inside col3
         st.audio(audio_bytes, format='audio/mp3')   
-        st.pyplot(plot_spec(y, sr))
+        #st.pyplot(plot_spec(y, sr))

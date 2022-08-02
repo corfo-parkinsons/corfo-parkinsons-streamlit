@@ -17,6 +17,12 @@ def ogg2wav(fn):
     sound.export(wfn, format="wav")
     print(f'DONE: {fn} became {wfn}')
 
+def mp32wav(fn):
+    wfn = fn.replace('.mp3','.wav')
+    sound = AudioSegment.from_mp3(fn)
+    sound.export(wfn, format="wav")
+    print(f'DONE: {fn} became {wfn}')
+        
 def o2w_folder(mask):
     for fn in glob.glob(mask):
         ogg2wav(fn)

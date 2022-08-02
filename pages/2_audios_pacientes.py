@@ -3,7 +3,7 @@ import pandas as pd
 import glob
 
 from s3link import *
-from aws import s3_audio_list, audio_list
+from aws import s3_audio_list, audio_data
 from plotters import plot_wave, plot_spec, dubread
 
 import streamlit as st

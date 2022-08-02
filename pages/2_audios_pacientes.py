@@ -28,27 +28,27 @@ audio_datos = s3_audio_list()
 # leer y cruzar datos DynamoDB
 dd_df = audio_data(True)
 #dd_df['time'] = dd_df['time'].apply(str)
-st.header('audio_data')
+st.header('audio_data (from DynamoDB)')
 st.write(dd_df)
 
 #st.write('NADa=', len(audio_datos))
 st.header('audio_datos (from s3)')
-st.write(audio_datos)
+#st.write(audio_datos)
+ad1 = dd_df[dd_df.id.str.contains('AUDIO')]   # the NEW
+ad2 = dd_df[dd_df.data.str.contains('JOMAX')]
 
-for _, row in audio_datos.iterrows():
+for _, row in ad2.iterrows():
 # una fila por cada registro existente
-    fn = row['filename']
-    time = row['time']  # AWS time
-    fecha, hora, size, fn = row
-
-    filename = 'AUDIO/NEW/'+fn.replace('.ogg','.wav')
+    row_dict = row['data']
+    #filename = 'AUDIO/NEW/'+fn.replace('.ogg','.wav')
     #if fecha in ('2022-07-29','2022-07-30',):
-    if JOMAX in filename:
-        st.write(f'Fecha: {fecha} Hora: {hora}  [Archivo: {filename}')
+    st_write(row_dict)
+    #st.write(f'Fecha: {fecha} Hora: {hora}  [Archivo: {filename}')
 
     # [1] fecha/hora
     # [2] print coefs
-        # try to match! 
+        # try to match!
+    if False:
         audio_bytes = open(filename, 'rb').read()
         y,sr = dubread(filename)
 

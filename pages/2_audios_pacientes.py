@@ -7,6 +7,9 @@ from aws import s3_audio_list, audio_data
 from plotters import plot_wave, plot_spec, dubread
 
 import streamlit as st
+st.set_page_config(
+    page_title="Farmacodinámica Parkinson", page_icon="⬇", layout="wide"
+)
 
 url1 = 'https://share.streamlit.io/sergiolucero/st1/main/app.py'
 url2 = url1.replace('st1','st2')
@@ -37,11 +40,12 @@ st.header('audio_datos (from s3)')
 ad1 = dd_df[dd_df.id.str.contains('AUDIO')]   # the NEW
 ad2 = dd_df[dd_df.data.str.contains('JOMAX')]
 ## 
-coefs = [data['JOMAX Contacto'][2] for data in ad2.data]
-times = [data['JOMAX Contacto'][1] for data in ad2.data]
+st.dataframe(ad2)
+#coefs = [data['JOMAX Contacto'][2] for data in ad2.data]
+#times = [data['JOMAX Contacto'][1] for data in ad2.data]
 
-ctdf = pd.DataFrame(dict(time=times, coeficientes=coefs))
-st.dataframe(coefs)
+#ctdf = pd.DataFrame(dict(time=times, coeficientes=coefs))
+#st.dataframe(coefs)
 
 for _, row in ad2.iterrows():
 # una fila por cada registro existente

@@ -34,17 +34,16 @@ st.write(dd_df)
 
 #st.write('NADa=', len(audio_datos))
 st.header('audio_datos (from s3)')
+audio_datos = audio_datos[audio_datos.filename.str.contains('JOMAX')]
+audio_datos = audio_datos[audio_datos.filename.str.contains('.mp3')]
+
 st.write(audio_datos)
 
-ad1 = dd_df[dd_df.id.str.contains('AUDIO')]   # the NEW
-ad2 = dd_df[dd_df.data.str.contains('JOMAX')]
-## 
-#st.dataframe(ad2)
-times = [eval(data)['JOMAX Contacto'][1] for data in ad2.data]
-coefs = [eval(data)['JOMAX Contacto'][2] for data in ad2.data]
+#times = [eval(data)['JOMAX Contacto'][1] for data in ad2.data]
+#coefs = [eval(data)['JOMAX Contacto'][2] for data in ad2.data]
 
-ctdf = pd.DataFrame(dict(time=times, coeficientes=coefs))
-st.dataframe(ctdf)
+#ctdf = pd.DataFrame(dict(time=times, coeficientes=coefs))
+#st.dataframe(ctdf)
 
 for _, row in ad2.iterrows():
 # una fila por cada registro existente

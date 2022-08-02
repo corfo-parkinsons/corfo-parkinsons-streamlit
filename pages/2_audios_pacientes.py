@@ -21,8 +21,8 @@ st.write("registro de medicaciones y mediciones de pacientes")
 html = f'<A HREF="{url1}">Farmacodinámica</A>'
 #st.components.v1.html(html)
 
-title = f'Frecuencias normalizadas {paciente}'
-charts = []
+#title = f'Frecuencias normalizadas {paciente}'
+#charts = []
 audio_datos = s3_audio_list()
 
 # leer y cruzar datos DynamoDB

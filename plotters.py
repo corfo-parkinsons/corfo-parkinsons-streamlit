@@ -4,7 +4,6 @@ import pydub
 import matplotlib.pyplot as plt
 import numpy as np
 
-
 def dubread(filename):
     a = pydub.AudioSegment.from_file(file=filename, format='wav')
     channel_sounds = a.split_to_mono()

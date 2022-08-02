@@ -104,7 +104,7 @@ def get_coefs(d):
 def audio_data(all=False):
     # should be get_df(table='audios_pacientes')
     adf = scan_table('audios_pacientes')        # id, data(3+12)
-
+    out = adf
     #adf['time'] = adf['data'].apply(dt)
     #adf['fecha'] = adf.time.apply(lambda t: '%d-%02d-%02d' %(t[0],t[1],t[2]))
     #adf['hora'] = adf.time.apply(lambda t: '%d:%02d:%02d' %(t[3],t[4],t[5]))

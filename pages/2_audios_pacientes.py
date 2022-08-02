@@ -36,13 +36,19 @@ st.header('audio_datos (from s3)')
 #st.write(audio_datos)
 ad1 = dd_df[dd_df.id.str.contains('AUDIO')]   # the NEW
 ad2 = dd_df[dd_df.data.str.contains('JOMAX')]
+## 
+coefs = [data['JOMAX Contacto'][2] for data in ad2.data]
+times = [data['JOMAX Contacto'][1] for data in ad2.data]
+
+ctdf = pd.DataFrame(dict(time=times, coeficientes=coefs))
+st.dataframe(coefs)
 
 for _, row in ad2.iterrows():
 # una fila por cada registro existente
     row_dict = row['data']
     #filename = 'AUDIO/NEW/'+fn.replace('.ogg','.wav')
     #if fecha in ('2022-07-29','2022-07-30',):
-    st.write(row_dict)
+    #st.write(row_dict)
     #st.write(f'Fecha: {fecha} Hora: {hora}  [Archivo: {filename}')
 
     # [1] fecha/hora

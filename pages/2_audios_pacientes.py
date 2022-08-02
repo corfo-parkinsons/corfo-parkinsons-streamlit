@@ -35,9 +35,19 @@ st.write(dd_df)
 #st.write('NADa=', len(audio_datos))
 st.header('audio_datos (from s3)')
 audio_datos = audio_datos[audio_datos.filename.str.contains('JOMAX')]
-audio_datos = audio_datos[audio_datos.filename.str.contains('.mp3')]
+s3ogg_datos = audio_datos[audio_datos.filename.str.contains('.ogg')]  # original
+s3mp3_datos = audio_datos[audio_datos.filename.str.contains('.mp3')]  # modified
 
-st.write(audio_datos)
+st.write(audio_datos)  # reading filenames from s3 (mp3/ogg -> mod_date!)
+from config import IN_FMT, OUT_FMT
+st.write('-'*80)
+for _, ogg_row in s3ogg_datos.iterrows():
+    ogg_filename, timedata = ogg_row.values
+    # look up mp3 (info)
+    matcher = ogg_filename.replace(IN_FMT, '')
+    st.write(ogg_filename, matcher)
+    match = s3mp3_datos[s3mp3_datos.filename.str.contains(matcher)]
+    st.write(match)
 
 #times = [eval(data)['JOMAX Contacto'][1] for data in ad2.data]
 #coefs = [eval(data)['JOMAX Contacto'][2] for data in ad2.data]

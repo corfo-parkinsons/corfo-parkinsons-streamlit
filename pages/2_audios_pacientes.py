@@ -40,7 +40,8 @@ s3mp3_datos = audio_datos[audio_datos.filename.str.contains('.mp3')]  # modified
 
 #st.write(audio_datos)  # reading filenames from s3 (mp3/ogg -> mod_date!)
 from config import IN_FMT, OUT_FMT
-#st.write('-'*80)
+
+st.write(len(s3ogg_datos), 'grabaciones registradas')
 for _, ogg_row in s3ogg_datos.iterrows():
     ogg_filename, timedata = ogg_row.values
     # look up mp3 (info)
@@ -49,14 +50,26 @@ for _, ogg_row in s3ogg_datos.iterrows():
     match = s3mp3_datos[s3mp3_datos.filename.str.contains(matcher)]  # mp3_file
     mp3_file = match.iloc[0]['filename']
     #st.write(match, mp3_file)
-    st.write(mp3_file.replace('AUDIOS/AUDIO/',''))
     audio_bytes = open(mp3_file, 'rb').read()
-    #y,sr = dubread(mp3_file)   # fix this!
+    wav_file = mp3_file.replace('.mp3','.wav')
+    txt_file = mp3_file.replace('.mp3','.txt')
 
+    y,sr = dubread(wav_file)   # fix this!
+
+    short_mp3 = mp3_file.replace('AUDIOS/AUDIO/','')
+    short_wav = wav_file.replace('AUDIOS/AUDIO/','')
+    
     col1, col2 = st.columns([1,1])
     with col1:
-        pass
+        #pass
+        st.write(short_mp3)
+        with open(wav_file, 'rb') as f:
+            st.download_button('Descargar WAV', f, file_name=short_wav)  # Defaults to 'application/octet-stream'
+        with open(txt_file) as txt:
+            st.download_button('Informe PRAAT', f)  # Defaults to 'text/plain'
+
         #st.pyplot(plot_wave(y, sr))
     with col2:   # audio was inside col3
-        st.audio(audio_bytes, format='audio/mp3')   
+        st.audio(audio_bytes, format='audio/wav')   
+        #st.audio(audio_bytes, format='audio/mp3')   
         #st.pyplot(plot_spec(y, sr))

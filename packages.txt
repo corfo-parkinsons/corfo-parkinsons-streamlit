@@ -1,3 +1,1 @@
-ffmpeg
-ffprobe
 libsndfile1-dev

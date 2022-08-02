@@ -40,7 +40,8 @@ s3mp3_datos = audio_datos[audio_datos.filename.str.contains('.mp3')]  # modified
 
 #st.write(audio_datos)  # reading filenames from s3 (mp3/ogg -> mod_date!)
 from config import IN_FMT, OUT_FMT
-#st.write('-'*80)
+
+st.write(len(s3ogg_datos), 'grabaciones registradas')
 for _, ogg_row in s3ogg_datos.iterrows():
     ogg_filename, timedata = ogg_row.values
     # look up mp3 (info)

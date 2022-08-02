@@ -42,7 +42,7 @@ for _, row in ad2.iterrows():
     row_dict = row['data']
     #filename = 'AUDIO/NEW/'+fn.replace('.ogg','.wav')
     #if fecha in ('2022-07-29','2022-07-30',):
-    st_write(row_dict)
+    st.write(row_dict)
     #st.write(f'Fecha: {fecha} Hora: {hora}  [Archivo: {filename}')
 
     # [1] fecha/hora

@@ -34,7 +34,8 @@ st.write(dd_df)
 
 #st.write('NADa=', len(audio_datos))
 st.header('audio_datos (from s3)')
-#st.write(audio_datos)
+st.write(audio_datos)
+
 ad1 = dd_df[dd_df.id.str.contains('AUDIO')]   # the NEW
 ad2 = dd_df[dd_df.data.str.contains('JOMAX')]
 ## 

@@ -74,7 +74,7 @@ for _, ogg_row in s3ogg_datos.iterrows():
             st.download_button('Descargar WAV', f, file_name=short_wav)  # Defaults to 'application/octet-stream'
         with open(txt_file) as txt:
             st.download_button('Informe PRAAT', txt, file_name=short_txt)  # Defaults to 'text/plain'
-            st.write(txt)
+            st.write(open(txt_file).read())
         #st.pyplot(plot_wave(y, sr))
     with col2:   # audio was inside col3
         st.audio(audio_bytes, format='audio/wav')   

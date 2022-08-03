@@ -40,8 +40,14 @@ s3mp3_datos = audio_datos[audio_datos.filename.str.contains('.mp3')]  # modified
 from config import IN_FMT, OUT_FMT
 
 st.write(len(s3ogg_datos), 'grabaciones registradas')
+
+# new work on JOMAX data
+from datetime import timedelta
+gap = timedelta(hours=4)
+s3ogg_datos['stime'] = s3ogg_datos.time.apply(lambda t: (t+gap).strftime('%Y-%m-%d %H-%M'))
+
 for _, ogg_row in s3ogg_datos.iterrows():
-    ogg_filename, timedata = ogg_row.values
+    ogg_filename, timedata, ogg_time = ogg_row.values
     # look up mp3 (info)
     matcher = ogg_filename.replace(IN_FMT, '')
     #st.write(ogg_filename, matcher)
@@ -56,16 +62,17 @@ for _, ogg_row in s3ogg_datos.iterrows():
 
     short_mp3 = mp3_file.replace('AUDIOS/AUDIO/','')
     short_wav = wav_file.replace('AUDIOS/AUDIO/','')
-    
+    short_txt = txt_file.replace('AUDIOS/AUDIO/','')
+
     col1, col2 = st.columns([1,1])
     with col1:
         #pass
-        st.write(short_mp3)
+        st.subheader('%s [%s]' %(short_mp3.replace('5221716593_JOMAX_Contacto_',''), ogg_time))
         with open(wav_file, 'rb') as f:
             st.download_button('Descargar WAV', f, file_name=short_wav)  # Defaults to 'application/octet-stream'
         with open(txt_file) as txt:
-            st.download_button('Informe PRAAT', f)  # Defaults to 'text/plain'
-
+            st.download_button('Informe PRAAT', txt, file_name=short_txt)  # Defaults to 'text/plain'
+            st.write(open(txt_file).read())
         #st.pyplot(plot_wave(y, sr))
     with col2:   # audio was inside col3
         st.audio(audio_bytes, format='audio/wav')   

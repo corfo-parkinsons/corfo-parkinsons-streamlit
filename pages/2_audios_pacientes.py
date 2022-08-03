@@ -78,7 +78,7 @@ for _, ogg_row in s3ogg_datos.iterrows():
             st.download_button('Descargar WAV', f, file_name=short_wav)  # Defaults to 'application/octet-stream'
         with open(txt_file) as txt:
             st.download_button('Informe PRAAT', txt, file_name=short_txt)  # Defaults to 'text/plain'
-            txt_dict = open(txt_file).read()  ## caché?
+            txt_dict = eval(open(txt_file).read())  ## caché?
             txt_dict = {k: fix(v) for k,v in txt_dict.items()}
             st.write(txt_dict)
         #st.pyplot(plot_wave(y, sr))

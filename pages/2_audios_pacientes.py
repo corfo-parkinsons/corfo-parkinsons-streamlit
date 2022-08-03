@@ -46,7 +46,7 @@ st.write(len(s3ogg_datos), 'grabaciones registradas')
 # new work on JOMAX data
 from datetime import timedelta
 gap = timedelta(hours=4)
-s3ogg_datos['stime'] = s3_datos.time.apply(lambda t: (t+gap).strftime('%Y-%m-%d %H-%M'))
+s3ogg_datos['stime'] = s3ogg_datos.time.apply(lambda t: (t+gap).strftime('%Y-%m-%d %H-%M'))
 
 for _, ogg_row in s3ogg_datos.iterrows():
     ogg_filename, timedata, ogg_time = ogg_row.values

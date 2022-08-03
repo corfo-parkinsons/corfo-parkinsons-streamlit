@@ -11,14 +11,12 @@ import streamlit as st
 url1 = 'https://share.streamlit.io/sergiolucero/st1/main/app.py'
 url2 = url1.replace('st1','st2')
 
-st.set_page_config(
-    page_title="Audios Parkinson", page_icon="*", layout="wide"
-)
+st.set_page_config(page_title="Audios Parkinson", page_icon="*", layout="wide")
 
 st.title("Audios Parkinson")
 st.write("[registro de mediciones de pacientes]")
 
-html = f'<A HREF="{url1}">Farmacodinámica</A>'
+#html = f'<A HREF="{url1}">Farmacodinámica</A>'
 #st.components.v1.html(html)
 
 #title = f'Frecuencias normalizadas {paciente}'

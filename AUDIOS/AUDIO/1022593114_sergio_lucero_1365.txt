@@ -1,17 +1,1 @@
-(119.49127187261819,
- 2.8041432960242467,
- 12.166612259682159,
- 0.086136,
- 0.005035729160000266,
- 4.214422780310848e-05,
- 0.0021805823566226055,
- 0.002661063496175892,
- 0.006541747069867817,
- 0.08168088624163503,
- 0.7283979609538126,
- 0.03965028243908382,
- 0.05286607023750928,
- 0.0721359698377812,
- 0.11895084731725146,
- 75.91844878433858,
- 0.7615344869434723)
+{'Duration [seconds]': 5.06, 'Median pitch [Hz]': 119.646, 'Mean pitch [Hz]': 119.491, 'Standard deviation [Hz]': 2.804, 'Minimum pitch [Hz]': 111.421, 'Maximum pitch [Hz]': 128.454, 'Number of pulses': 541.0, 'Number of periods': 539.0, 'Mean period [seconds]': 0.008369042, 'Standard deviation of period [seconds]': 0.000200796, 'Fraction of locally unvoiced frames': '9.363%   (47 / 502)', 'Number of voice breaks': 1.0, 'Degree of voice breaks [seconds)]': '0.671% (0.033938 seconds / 5.060000', 'Jitter (local)': '0.504%', 'Jitter (local, absolute) [seconds]': 4.2144e-05, 'Jitter (rap)': '0.218%', 'Jitter (ppq5)': '0.266%', 'Jitter (ddp)': '0.654%', 'Shimmer (local)': '8.168%', 'Shimmer (local, dB) [dB]': 0.728, 'Shimmer (apq3)': '3.965%', 'Shimmer (apq5)': '5.287%', 'Shimmer (apq11)': '7.214%', 'Shimmer (dda)': '11.895%', 'Mean autocorrelation': 0.925746, 'Mean noise-to-harmonics ratio': 0.086136, 'Mean harmonics-to-noise ratio [dB]': 12.048, 'F1': 781.7658577091415, 'F2': 1139.9588351111465, 'F3': 2475.0204023413467, 'F4': 3326.463983517472, 'PPE': 0.7615344869434723}

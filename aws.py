@@ -3,19 +3,26 @@ import pandas as pd
 from collections import Counter
 from boto3 import client
 import pandas as pd
+import requests
+from dynamo_pandas import get_df
+
+############
+AUDIO_FOLDER = 'AUDIOS/AUDIO'
+
+def s3_objects():
+    conn = client('s3')  # again assumes boto.cfg setup, assume AWS S3
+    objects = conn.list_objects(Bucket='quantcldata', Prefix=AUDIO_FOLDER)
+    return objects
 
 def s3_audio_list():
-    conn = client('s3')  # again assumes boto.cfg setup, assume AWS S3
-    objects = conn.list_objects(Bucket='quantcldata',Prefix='AUDIOS/AUDIO')
+    objects = s3_objects()
     files = [key['Key']  for key in objects['Contents']]
     times = [key['LastModified']  for key in objects['Contents']]
 
     return pd.DataFrame(dict(filename=files, time=times))
 
 def audio_summary():
-    conn = client('s3')  
-    objects = conn.list_objects(Bucket='quantcldata',Prefix='AUDIOS/AUDIO')
-
+    objects = s3_objects()
     cdf = pd.DataFrame(objects['Contents'])
     cdf['user'] = cdf.Key.apply(lambda k: k.split('/')[-1].split('_'))
     #cdf
@@ -38,7 +45,6 @@ def scan_pats():
     table = dynamodb.Table('Pacientes')
     return table.scan()['Items']
 
-import requests
 def schedules():
     
     URL = 'https://quantcldata.s3.us-east-2.amazonaws.com/CLIENTES/CORFO/pacientes_test.json'
@@ -79,7 +85,6 @@ def freqs(d):
 
     return cuts2
 
-from dynamo_pandas import get_df
 def ts(t):
     if isinstance(t,str):
         t1,t2=t.split()

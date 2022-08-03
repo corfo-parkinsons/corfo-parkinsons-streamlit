@@ -8,6 +8,12 @@ from plotters import plot_wave, plot_spec, dubread
 
 import streamlit as st
 
+def fix(v):
+    if isinstance(v, float):
+        return round(v, 3)
+    else:
+        return v  # redo
+    
 url1 = 'https://share.streamlit.io/sergiolucero/st1/main/app.py'
 url2 = url1.replace('st1','st2')
 
@@ -72,7 +78,9 @@ for _, ogg_row in s3ogg_datos.iterrows():
             st.download_button('Descargar WAV', f, file_name=short_wav)  # Defaults to 'application/octet-stream'
         with open(txt_file) as txt:
             st.download_button('Informe PRAAT', txt, file_name=short_txt)  # Defaults to 'text/plain'
-            st.write(open(txt_file).read())
+            txt_dict = open(txt_file).read()  ## caché?
+            txt_dict = {k: fix(v) for k,v in txt_dict.items()}
+            st.write(txt_dict)
         #st.pyplot(plot_wave(y, sr))
     with col2:   # audio was inside col3
         st.audio(audio_bytes, format='audio/wav')   

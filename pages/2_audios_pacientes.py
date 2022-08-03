@@ -69,7 +69,7 @@ for _, ogg_row in s3ogg_datos.iterrows():
     col1, col2 = st.columns([1,1])
     with col1:
         #pass
-        st.subheader('%s [%s]' %(short_mp3, ogg_time))
+        st.subheader('%s [%s]' %(short_mp3.replace('5221716593_JOMAX_Contacto_',''), ogg_time))
         with open(wav_file, 'rb') as f:
             st.download_button('Descargar WAV', f, file_name=short_wav)  # Defaults to 'application/octet-stream'
         with open(txt_file) as txt:

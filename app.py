@@ -16,10 +16,13 @@ def run():
     st.sidebar.success("Elige una página.")
 
     st.dataframe(schedules())
-    full_audio = audio_data(True)
+    adf = audio_data(True)
+    adf=adf[adf.id.str.contains('.mp3')]
+    sdf = adf.groupby('user').agg({'date': ['max','size']})
+    st.dataframe(sdf)
+
     # now norm+plot it!
     base = [144,815,1486,2903,3722,0.02,0.05]
-    st.dataframe(full_audio)
     #full_audio['nfa'] = full_audio['coefs'].apply(lambda c: [(cix/bix) for cix, bix in zip(c,base)])
     #full_audio = full_audio.drop(columns=['coefs'])
     #dfa = {}

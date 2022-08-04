@@ -9,4 +9,5 @@ st.header('Audios Fase Agosto')
 for col in ['user','date','coefs']:
     adf[col] = adf.data.apply(lambda d: eval(d).get(col))
 
+adf = adf.drop('data', axis=1)
 st.dataframe(adf)

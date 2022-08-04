@@ -11,3 +11,11 @@ for col in ['user','date','coefs']:
 
 adf = adf.drop('data', axis=1)
 st.dataframe(adf)
+
+## ahora los links de descarga
+#AUDIO/5221716593_JOMAX_Contacto_1357.mp3
+ROOT = 'https://quantcldata.s3.us-east-2.amazonaws.com/AUDIOS/'
+for _, row in adf.iterrows():
+    url = ROOT+row['id']
+    html_string = f"<A HREF='{url}'>Descargar {url}</A>"
+    st.markdown(html_string, unsafe_allow_html=True)

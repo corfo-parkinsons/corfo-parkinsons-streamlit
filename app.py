@@ -18,6 +18,8 @@ def run():
     st.dataframe(schedules())
     adf = audio_data(True)
     adf=adf[adf.id.str.contains('.mp3')]
+    for k in ['user','date']:
+        adf[k]=adf.data.apply(lambda d: eval(d).get(k))
     sdf = adf.groupby('user').agg({'date': ['max','size']})
     st.dataframe(sdf)
 

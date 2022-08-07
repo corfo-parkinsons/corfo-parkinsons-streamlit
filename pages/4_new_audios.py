@@ -10,6 +10,7 @@ for col in ['user','date','coefs']:
     adf[col] = adf.data.apply(lambda d: eval(d).get(col))
 
 adf = adf.drop('data', axis=1)
+adf = adf.sort_values('date')
 st.dataframe(adf)
 
 ## ahora los links de descarga

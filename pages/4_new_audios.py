@@ -10,7 +10,8 @@ for col in ['user','date','coefs']:
     adf[col] = adf.data.apply(lambda d: eval(d).get(col))
 
 adf = adf.sort_values('date', ascending=False)
-#adf['link']= [f"<A HREF='{ROOT}{dato}'>archivo</A>" for data in adf.data]
+links = [f"<A HREF='{ROOT}{dato}'>archivo</A>" for data in adf.data]
+adf['link']= links
 #adf = adf.drop('data', axis=1)
 st.dataframe(adf)
 

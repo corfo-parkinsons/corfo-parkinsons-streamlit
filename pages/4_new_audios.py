@@ -12,8 +12,8 @@ for col in ['user','date','coefs']:
 adf = adf.drop('data', axis=1)
 adf = adf.sort_values('date', ascending=False)
 
-adf['link']= [f"<A HREF='{dato}'>archivo</A>" for data in adf.data]
-adf = adf.drop('date', axis=1)
+#adf['link']= [f"<A HREF='{dato}'>archivo</A>" for data in adf.data]
+#adf = adf.drop('data', axis=1)
 st.dataframe(adf)
 
 ## ahora los links de descarga

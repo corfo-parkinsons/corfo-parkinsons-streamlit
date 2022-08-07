@@ -9,11 +9,9 @@ ROOT = 'https://quantcldata.s3.us-east-2.amazonaws.com/AUDIOS/'
 for col in ['user','date','coefs']:
     adf[col] = adf.data.apply(lambda d: eval(d).get(col))
 
-adf = adf.drop('data', axis=1)
 adf = adf.sort_values('date', ascending=False)
-
-#adf['link']= [f"<A HREF='{dato}'>archivo</A>" for data in adf.data]
-#adf = adf.drop('data', axis=1)
+adf['link']= [f"<A HREF='{ROOT}{dato}'>archivo</A>" for data in adf.data]
+adf = adf.drop('data', axis=1)
 st.dataframe(adf)
 
 ## ahora los links de descarga

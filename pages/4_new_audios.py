@@ -16,10 +16,11 @@ adf = adf.drop('data', axis=1)
 st.dataframe(adf)
 
 ## ahora los links de descarga
-#AUDIO/5221716593_JOMAX_Contacto_1357.mp3
-st.markdown('<TABLE BORDER=1><TR><TH>Coeficientes</TH><TH>Descarga</TH></TR>')
+ht = lambda x: st.markdown(x, unsafe_allow_html=True)
+ht('<TABLE BORDER=1><TR<TH>user</TH><TH>date</TH>TH>Coeficientes</TH><TH>Descarga</TH></TR>')
 for _, row in adf.iterrows():
-    html_string = '<TR><TD>%s</TD>' %row['coefs']
-    html_string += '<TD>%s</TD>' %row['link']
-    st.markdown(html_string, unsafe_allow_html=True)
-st.markdown('</TABLE>')
+    html_string = '<TR>'
+    for var in ['user','date','coefs','link']:
+        html_string += '<TD>%s</TD>' %row[var]
+    ht(html_string+'</TR>')
+ht('</TABLE>')

@@ -13,7 +13,7 @@ for col in ['user','date','coefs']:
 adf = adf.sort_values('date', ascending=False)
 adf['link']= [rt(dato) for dato in adf.data]
 adf = adf.drop('data', axis=1)
-st.dataframe(adf)
+#st.dataframe(adf)
 
 ## ahora los links de descarga
 ht = lambda x: st.markdown(x, unsafe_allow_html=True)

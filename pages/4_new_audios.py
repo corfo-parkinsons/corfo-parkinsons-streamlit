@@ -19,7 +19,7 @@ st.dataframe(adf)
 ht = lambda x: st.markdown(x, unsafe_allow_html=True)
 html_string = '<TABLE BORDER=1><TR><TH>user</TH><TH>date</TH><TH>Coeficientes</TH><TH>Descarga</TH></TR>'
 for _, row in adf.iterrows():
-    html_string += '<TR>
+    html_string += '<TR>'
     for var in ['user','date','coefs','link']:
         html_string += '<TD>%s</TD>' %row[var]
     html_string+='</TR>'

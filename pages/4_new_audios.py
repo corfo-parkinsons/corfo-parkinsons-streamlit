@@ -17,7 +17,9 @@ st.dataframe(adf)
 
 ## ahora los links de descarga
 #AUDIO/5221716593_JOMAX_Contacto_1357.mp3
+st.markdown('<TABLE BORDER=1><TR><TH>Coeficientes</TH><TH>Descarga</TH></TR>')
 for _, row in adf.iterrows():
-    url = ROOT+row['id']
-    html_string = f"<A HREF='{url}'>Descargar {row['id']}</A>"
+    html_string = '<TR><TD>%s</TD>' %row['coefs']
+    html_string += '<TD>%s</TD>' %row['link']
     st.markdown(html_string, unsafe_allow_html=True)
+st.markdown('</TABLE>')

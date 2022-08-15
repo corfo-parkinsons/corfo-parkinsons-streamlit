@@ -20,7 +20,7 @@ def run():
     adf=adf[adf.id.str.contains('.mp3')]
     for k in ['user','date']:
         adf[k]=adf.data.apply(lambda d: eval(d).get(k))
-    sdf = adf.groupby('user').agg({'date': ['max','size']})
+    sdf = adf.groupby('user').agg({'date': ['min','max','size']})
     st.dataframe(sdf)
 
     # now norm+plot it!

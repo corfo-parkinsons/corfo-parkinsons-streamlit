@@ -12,10 +12,10 @@ def run():
     )
 
     st.write("# Parkinson Dash Streamlit! 👋")
-    st.image('logoCP.jpg', width=200)
+    #st.image('logoCP.jpg', width=200)
     st.sidebar.success("Elige una página.")
 
-    st.dataframe(schedules())
+    #st.dataframe(schedules())
     adf = audio_data(True)
     adf=adf[adf.id.str.contains('.mp3')]
     for k in ['user','date']:

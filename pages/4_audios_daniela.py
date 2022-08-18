@@ -76,11 +76,11 @@ for _, ogg_row in s3ogg_datos.iterrows():
         st.subheader('%s [%s]' %(short_mp3.replace('5221716593_JOMAX_Contacto_',''), ogg_time))
         with open(wav_file, 'rb') as f:
             st.download_button('Descargar WAV', f, file_name=short_wav)  # Defaults to 'application/octet-stream'
-        with open(txt_file) as txt:
-            st.download_button('Informe PRAAT', txt, file_name=short_txt)  # Defaults to 'text/plain'
-            txt_dict = eval(open(txt_file).read())  ## caché?
-            txt_dict = {k: fix(v) for k,v in txt_dict.items()}
-            st.write(txt_dict)
+        #with open(txt_file) as txt:
+        #    st.download_button('Informe PRAAT', txt, file_name=short_txt)  # Defaults to 'text/plain'
+        #    txt_dict = eval(open(txt_file).read())  ## caché?
+        #    txt_dict = {k: fix(v) for k,v in txt_dict.items()}
+        #    st.write(txt_dict)
         #st.pyplot(plot_wave(y, sr))
     with col2:   # audio was inside col3
         st.audio(audio_bytes, format='audio/wav')   

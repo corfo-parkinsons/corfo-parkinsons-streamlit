@@ -7,7 +7,10 @@ import numpy as np
 def dubread(filename):
     #a = pydub.AudioSegment.from_file(file=filename, format='wav')
     # if .mp3 in filename...
-    a = pydub.AudioSegment.from_file(file=filename, format='mp3')
+    try:
+        a = pydub.AudioSegment.from_file(file=filename, format='mp3')
+    except:
+        a = pydub.AudioSegment.from_file(file=filename, format='wav')
     channel_sounds = a.split_to_mono()
     samples = [s.get_array_of_samples() for s in channel_sounds]
     fp_arr = np.array(samples).T.astype(np.float32)

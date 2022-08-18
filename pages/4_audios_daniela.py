@@ -34,7 +34,7 @@ dd_df = audio_data(True)
 dd_df = dd_df[dd_df.data.str.contains('Daniela')]
 #dd_df['time'] = dd_df['time'].apply(str)
 #st.header('audio_data (from DynamoDB)')
-st.write(dd_df)
+#st.write(dd_df)
 
 #st.write('NADa=', len(audio_datos))
 #st.header('audio_datos (from s3)')
@@ -64,7 +64,7 @@ for _, ogg_row in s3ogg_datos.iterrows():
     wav_file = mp3_file.replace('.mp3','.wav')
     txt_file = mp3_file.replace('.mp3','.txt')
 
-    y,sr = dubread(wav_file)   # fix this!
+    #y,sr = dubread(wav_file)   # fix this!
 
     short_mp3 = mp3_file.replace('AUDIOS/AUDIO/','')
     short_wav = wav_file.replace('AUDIOS/AUDIO/','')

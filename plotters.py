@@ -10,7 +10,8 @@ def dubread(filename):
     try:
         a = pydub.AudioSegment.from_file(file=filename, format='mp3')
     except:
-        a = pydub.AudioSegment.from_file(file=filename, format='wav')
+        raise Exception(f'failed {filename}')
+
     channel_sounds = a.split_to_mono()
     samples = [s.get_array_of_samples() for s in channel_sounds]
     fp_arr = np.array(samples).T.astype(np.float32)

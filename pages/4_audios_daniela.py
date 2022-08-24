@@ -74,8 +74,11 @@ for _, ogg_row in s3ogg_datos.iterrows():
     with col1:
         #pass
         st.subheader('%s [%s]' %(short_mp3.replace('5221716593_JOMAX_Contacto_',''), ogg_time))
-        with open(wav_file, 'rb') as f:
-            st.download_button('Descargar WAV', f, file_name=short_wav)  # Defaults to 'application/octet-stream'
+        try:
+            with open(wav_file, 'rb') as f:
+                st.download_button('Descargar WAV', f, file_name=short_wav)  # Defaults to 'application/octet-stream'
+        except:
+            st.write('NOT FOUND:', wav_file)
         with open(txt_file) as txt:
             st.download_button('Informe PRAAT', txt, file_name=short_txt)  # Defaults to 'text/plain'
             txt_dict = eval(open(txt_file).read())  ## caché?

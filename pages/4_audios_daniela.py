@@ -1,6 +1,7 @@
 import altair as alt
 import pandas as pd
 import glob
+from datetime import timedelta
 
 from s3link import *
 from aws import s3_audio_list, audio_data
@@ -22,11 +23,6 @@ st.set_page_config(page_title="Audios Parkinson", page_icon="*", layout="wide")
 st.title("Audios Parkinson")
 st.write("[registro de mediciones de pacientes]")
 
-#html = f'<A HREF="{url1}">Farmacodinámica</A>'
-#st.components.v1.html(html)
-
-#title = f'Frecuencias normalizadas {paciente}'
-#charts = []
 audio_datos = s3_audio_list()
 
 # leer y cruzar datos DynamoDB
@@ -38,7 +34,8 @@ dd_df = dd_df[dd_df.data.str.contains('Daniela')]
 
 #st.write('NADa=', len(audio_datos))
 #st.header('audio_datos (from s3)')
-audio_datos = audio_datos[audio_datos.filename.str.contains('Daniela')]
+#audio_datos = audio_datos[audio_datos.filename.str.contains('Daniela')]
+st.write(audio_datos)
 s3ogg_datos = audio_datos[audio_datos.filename.str.contains('.ogg')]  # original
 s3mp3_datos = audio_datos[audio_datos.filename.str.contains('.mp3')]  # modified
 
@@ -48,7 +45,6 @@ from config import IN_FMT, OUT_FMT
 st.write(len(s3ogg_datos), 'grabaciones registradas')
 
 # new work on JOMAX data
-from datetime import timedelta
 gap = timedelta(hours=4)
 s3ogg_datos['stime'] = s3ogg_datos.time.apply(lambda t: (t+gap).strftime('%Y-%m-%d %H-%M'))
 
